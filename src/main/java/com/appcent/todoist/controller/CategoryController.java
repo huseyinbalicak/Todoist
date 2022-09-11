@@ -59,14 +59,18 @@ public class CategoryController {
         return ResponseEntity.ok(RestResponse.empty());
     }
 
-
-
     @GetMapping("/todos/{id}")
     public ResponseEntity getAllTodoByCategoriesId(@PathVariable  Long id) {
 
         List<TodoResponseDto> todoResponseDtoList = todoService.findByCategory(id);
         return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
 
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity getAllCategoriesByUserId(@PathVariable Long id) {
+        List<CategoryResponseDto> categoryResponseDtoList = categoryService.findAllByUserId(id);
+        return ResponseEntity.ok(RestResponse.of(categoryResponseDtoList));
     }
 
 }

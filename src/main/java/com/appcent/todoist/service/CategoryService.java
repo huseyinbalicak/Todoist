@@ -77,4 +77,11 @@ public class CategoryService {
     }
 
 
+    public List<CategoryResponseDto> findAllByUserId(Long userId) {
+
+        List<Category> categoryList = categoryRepository.findCategoryByUserId(userId);
+        return CategoryMapper.INSTANCE.convertToCategoryResponseDtoList(categoryList);
+    }
+
+
 }

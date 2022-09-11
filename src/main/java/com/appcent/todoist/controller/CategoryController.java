@@ -1,10 +1,12 @@
 package com.appcent.todoist.controller;
 
 import com.appcent.todoist.dto.CategoryResponseDto;
+import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.save.CategorySaveRequestDto;
 import com.appcent.todoist.dto.update.CategoryUpdateRequestDto;
 import com.appcent.todoist.response.RestResponse;
 import com.appcent.todoist.service.CategoryService;
+import com.appcent.todoist.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,11 +27,20 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final TodoService todoService;
 
     @GetMapping
     public ResponseEntity findAll(){
         List<CategoryResponseDto> categoryResponseDtoList = categoryService.findAll();
         return ResponseEntity.ok(RestResponse.of(categoryResponseDtoList));
+    }
+
+    @GetMapping("/todos/{id}")
+    public ResponseEntity getAllTodoByCategoriesId(@PathVariable  Long id) {
+
+        List<TodoResponseDto> todoResponseDtoList = todoService.findByCategory(id);
+        return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
+
     }
 
     @GetMapping("/{id}")

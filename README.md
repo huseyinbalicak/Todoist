@@ -50,11 +50,14 @@ Tech Stack:
 
 
 
-|       Controller       | Metot  |             Adres              |         Description          |
-|:----------------------:| :----: |:------------------------------:|:----------------------------:|
-| **CategoryController** |  GET   |   localhost:8080/categories    |   Will List All categories   |
-|                        |  GET   | localhost:8080/categories/{id} |  will get category with id   |
-|                        |  POST  |   localhost:8080/categories    |      create a category       |
-|                        |  PUT   |   localhost:8080/categories    |     will update category     |
-|                        | DELETE | localhost:8080/categories/{id} | will delete category with id |
+
+|       Controller       | Metot  |                Adres                 |                      Description                      |
+|:----------------------:|:------:|:------------------------------------:|:-----------------------------------------------------:|
+| **CategoryController** |  GET   |      localhost:8080/categories       |               Will List All categories                |
+|                        |  GET   |    localhost:8080/categories/{id}    |               will get category with id               |
+|                        |  POST  |      localhost:8080/categories       |                   create a category                   |
+|                        |  PUT   |      localhost:8080/categories       |                 will update category                  |
+|                        | DELETE |    localhost:8080/categories/{id}    |             will delete category with id              |
+|                    |  GET   | localhost:8080/categories/users/{id} | returns the list of the categories of a selected user |
+|                    |  GET   | localhost:8080/categories/todos/{id} |  returns the list of the Todo of a selected category  |
 

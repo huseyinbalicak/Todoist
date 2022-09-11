@@ -41,15 +41,6 @@ public class CategoryController {
         return ResponseEntity.ok(RestResponse.of(categoryResponseDto));
     }
 
-
-    @GetMapping("/todos/{id}")
-    public ResponseEntity getAllTodoByCategoriesId(@PathVariable  Long id) {
-
-        List<TodoResponseDto> todoResponseDtoList = todoService.findByCategory(id);
-        return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
-
-    }
-
     @PostMapping
     public ResponseEntity save(@Valid @RequestBody CategorySaveRequestDto categorySaveRequestDto){
         CategoryResponseDto categoryResponseDto = categoryService.save(categorySaveRequestDto);
@@ -66,6 +57,16 @@ public class CategoryController {
     public ResponseEntity delete(@PathVariable Long id){
         categoryService.delete(id);
         return ResponseEntity.ok(RestResponse.empty());
+    }
+
+
+
+    @GetMapping("/todos/{id}")
+    public ResponseEntity getAllTodoByCategoriesId(@PathVariable  Long id) {
+
+        List<TodoResponseDto> todoResponseDtoList = todoService.findByCategory(id);
+        return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
+
     }
 
 }

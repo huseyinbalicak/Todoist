@@ -35,18 +35,19 @@ public class CategoryController {
         return ResponseEntity.ok(RestResponse.of(categoryResponseDtoList));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id){
+        CategoryResponseDto categoryResponseDto = categoryService.findById(id);
+        return ResponseEntity.ok(RestResponse.of(categoryResponseDto));
+    }
+
+
     @GetMapping("/todos/{id}")
     public ResponseEntity getAllTodoByCategoriesId(@PathVariable  Long id) {
 
         List<TodoResponseDto> todoResponseDtoList = todoService.findByCategory(id);
         return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
 
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable Long id){
-        CategoryResponseDto categoryResponseDto = categoryService.findById(id);
-        return ResponseEntity.ok(RestResponse.of(categoryResponseDto));
     }
 
     @PostMapping

@@ -19,10 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TodoServiceTest {
@@ -119,5 +116,15 @@ public class TodoServiceTest {
         doNothing().when(todoRepository).deleteById(anyLong());
         todoService.delete(1L);
         verify(todoRepository).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldNotDelete()
+    {
+        doThrow(EntityNotFoundException.class).when(todoRepository).deleteById(anyLong());
+        assertThrows(EntityNotFoundException.class,()->todoService.delete(anyLong()));
+        verify(todoRepository).deleteById(anyLong());
+
+
     }
 }

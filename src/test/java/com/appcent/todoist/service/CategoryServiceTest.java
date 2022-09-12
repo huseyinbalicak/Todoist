@@ -115,4 +115,14 @@ public class CategoryServiceTest {
         verify(categoryRepository).deleteById(anyLong());
     }
 
+    @Test
+    void shouldNotDelete()
+    {
+        doThrow(EntityNotFoundException.class).when(categoryRepository).deleteById(anyLong());
+        assertThrows(EntityNotFoundException.class,()->categoryService.delete(anyLong()));
+        verify(categoryRepository).deleteById(anyLong());
+
+
+    }
+
 }

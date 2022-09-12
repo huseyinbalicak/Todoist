@@ -26,8 +26,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUserByUserId(Long id) {
 
-        User cusCustomer = userRepository.getById(id);
+        User user = userRepository.getById(id);
 
-        return JwtUserDetails.create(cusCustomer);
+        return JwtUserDetails.create(user);
     }
 }

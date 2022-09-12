@@ -32,29 +32,17 @@ public class UserController {
        return ResponseEntity.ok(RestResponse.of(userResponseDtoList));
     }
 
-   /* @GetMapping
-    public ResponseEntity<List<UserResponseDto>> getAllUsers(){
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-    }
-*/
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Long id){
         UserResponseDto userResponseDto = userService.findById(id);
         return ResponseEntity.ok(RestResponse.of(userResponseDto));
     }
 
-
-  /*  @PostMapping
-    public ResponseEntity<UserResponseDto> save(@RequestBody UserSaveRequestDto userSaveRequestDto){
-        return new ResponseEntity<>(userService.save(userSaveRequestDto), HttpStatus.CREATED);
-    }
-*/
     @PostMapping
     public ResponseEntity save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto){
         UserResponseDto userResponseDto = userService.save(userSaveRequestDto);
         return ResponseEntity.ok(RestResponse.of(userResponseDto));
     }
-
 
     @PutMapping
     public ResponseEntity update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto){

@@ -16,9 +16,6 @@ public class TodoUpdateRequestDto {
     private Long id;
     private String description;
     private String tittle;
-    //private ZonedDateTime startDate;
-    //private boolean favorite;
-    //private boolean done;
     private CategoryUpdateRequestDto category;
 
 }

@@ -51,7 +51,7 @@ public class CategoryService {
             log.error("Category id is null");
             throw new EntityNotFoundException("No category found with ID = " + id);
         }
-        categoryRepository.delete(findByIdWithControl(id));
+        categoryRepository.deleteById(id);
     }
 
 

@@ -108,4 +108,11 @@ public class CategoryServiceTest {
         assertFalse(isExist);
     }
 
+    @Test
+    void shouldDelete(){
+        doNothing().when(categoryRepository).deleteById(anyLong());
+        categoryService.delete(1L);
+        verify(categoryRepository).deleteById(anyLong());
+    }
+
 }

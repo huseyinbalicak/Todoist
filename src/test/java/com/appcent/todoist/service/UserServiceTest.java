@@ -113,6 +113,13 @@ public class UserServiceTest {
         assertFalse(isExist);
     }
 
+    @Test
+    void shouldDelete(){
+        doNothing().when(userRepository).deleteById(anyLong());
+        userService.delete(1L);
+        verify(userRepository).deleteById(anyLong());
+    }
+
 
 
 }

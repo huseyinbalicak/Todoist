@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private UserService userService;
 
@@ -74,6 +78,7 @@ public class UserServiceTest {
         UserSaveRequestDto userSaveRequestDto = mock(UserSaveRequestDto.class);
         User user = mock(User.class);
         when(user.getId()).thenReturn(1L);
+        when(passwordEncoder.encode(anyString())).thenReturn("huseyin123");
         when(userRepository.save(any())).thenReturn(user);
         UserResponseDto result = userService.save(userSaveRequestDto);
         assertEquals(1L, result.getId());

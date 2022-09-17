@@ -1,15 +1,12 @@
 package com.appcent.todoist.dto.save;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Builder
 @Getter
@@ -31,6 +28,4 @@ public class UserSaveRequestDto {
     @NotNull
     @Size(min = 8)
     private String password;
-    private Long identityNo;
-    private List<CategorySaveRequestDto> category;
 }

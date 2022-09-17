@@ -35,8 +35,7 @@ public class Todo {
     private Date creationDate;
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
-    //private boolean favorite;
-    //private boolean done;
+    private Boolean isDone;
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;

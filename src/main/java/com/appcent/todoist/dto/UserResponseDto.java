@@ -20,7 +20,5 @@ public class UserResponseDto {
     private String lastName;
     private String email;
     private String userName;
-    private Boolean emailVerified;
-    private Long identityNo;
     private List<CategoryResponseDto> category;
 }

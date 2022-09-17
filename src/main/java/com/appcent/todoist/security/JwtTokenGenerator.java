@@ -14,9 +14,10 @@ import java.util.Date;
 @Component
 public class JwtTokenGenerator {
 
+   // private static final int validity = 5 * 60 * 1000;
+   // Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     @Value("${appcent.jwt.security.app.key}")
     private String APP_KEY;
-
     @Value("${appcent.jwt.security.expire.time}")
     private Long EXPIRE_TIME;
 
@@ -36,39 +37,27 @@ public class JwtTokenGenerator {
     public Long findUserIdByToken(String token){
 
         Jws<Claims> claimsJws = parseToken(token);
-
-        String userIdStr = claimsJws
-                .getBody()
-                .getSubject();
-
+        String userIdStr = claimsJws.getBody().getSubject();
         return Long.parseLong(userIdStr);
     }
 
     private Jws<Claims> parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(APP_KEY)
-                .parseClaimsJws(token);
+        return Jwts.parser().setSigningKey(APP_KEY).parseClaimsJws(token);
     }
 
     public boolean validateToken(String token){
-
         boolean isValid;
-
         try {
             Jws<Claims> claimsJws = parseToken(token);
-
             isValid = !isTokenExpired(claimsJws);
         } catch (Exception e){
             isValid = false;
         }
-
         return isValid;
     }
 
     private boolean isTokenExpired(Jws<Claims> claimsJws) {
-
         Date expirationDate = claimsJws.getBody().getExpiration();
-
         return expirationDate.before(new Date());
     }
 }

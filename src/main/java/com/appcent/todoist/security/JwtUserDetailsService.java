@@ -16,18 +16,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Long identityNo = Long.valueOf(username);
-
-        User user = userRepository.findByIdentityNo(identityNo);
-
+        User user = userRepository.findByUserName(username);
         return JwtUserDetails.create(user);
     }
 
     public UserDetails loadUserByUserId(Long id) {
 
-        User user = userRepository.getById(id);
-
+        User user = userRepository.findById(id).get();
         return JwtUserDetails.create(user);
     }
 }

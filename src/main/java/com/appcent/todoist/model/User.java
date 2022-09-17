@@ -29,23 +29,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String userName;
-
     private String password;
-
-    private Boolean emailVerified;
-
-    @Column(name = "IDENTITY_NO", nullable = false)
-    private Long identityNo;
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Category> category;
 

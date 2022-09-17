@@ -23,7 +23,6 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto){
 
         String token = authenticationService.login(loginRequestDto);
-
         return ResponseEntity.ok(RestResponse.of(token));
     }
 
@@ -31,7 +30,6 @@ public class AuthenticationController {
     public ResponseEntity register(@RequestBody UserSaveRequestDto userSaveRequestDto){
 
         UserResponseDto userResponseDto =authenticationService.register(userSaveRequestDto);
-
         return ResponseEntity.ok(RestResponse.of(userResponseDto));
     }
 }

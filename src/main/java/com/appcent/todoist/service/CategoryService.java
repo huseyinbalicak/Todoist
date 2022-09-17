@@ -54,7 +54,6 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-
     public boolean isExist(Long id){
         return categoryRepository.existsById(id);
     }

@@ -11,10 +11,10 @@ import java.util.List;
 
 public class JwtUserDetails implements UserDetails {
 
-    private Long id;
-    private String username;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Long id;
+    private final String username;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     private JwtUserDetails(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -24,15 +24,9 @@ public class JwtUserDetails implements UserDetails {
     }
 
     public static JwtUserDetails create(User user){
-
-        Long id = user.getId();
-        String username = user.getIdentityNo().toString();
-        String password = user.getPassword();
-
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         grantedAuthorityList.add(new SimpleGrantedAuthority("user"));
-
-        return new JwtUserDetails(id, username, password, grantedAuthorityList);
+        return new JwtUserDetails(user.getId(), user.getUserName(), user.getPassword(), grantedAuthorityList);
     }
 
     @Override

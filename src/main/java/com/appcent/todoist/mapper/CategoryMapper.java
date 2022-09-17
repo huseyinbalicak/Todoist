@@ -16,10 +16,7 @@ public interface CategoryMapper {
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
     CategoryResponseDto convertToCategoryResponseDto(Category category);
-
     List<CategoryResponseDto> convertToCategoryResponseDtoList (List<Category> categoryList);
-
     Category convertToCategory(CategorySaveRequestDto categorySaveRequestDto);
-
     Category convertToCategory(CategoryUpdateRequestDto categoryUpdateRequestDto);
 }

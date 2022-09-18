@@ -25,9 +25,9 @@ public class AuthenticationService {
         return userService.save(userSaveRequestDto);
     }
 
-    public String login(LoginRequestDto secLoginRequestDto) {
+    public String login(LoginRequestDto loginRequestDto) {
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(secLoginRequestDto.getIdentityNo().toString(), secLoginRequestDto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(), loginRequestDto.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);

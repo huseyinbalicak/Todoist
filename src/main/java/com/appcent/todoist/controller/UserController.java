@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity findAll(){
         List<UserResponseDto> userResponseDtoList = userService.findAll();
-       return ResponseEntity.ok(RestResponse.of(userResponseDtoList));
+        return ResponseEntity.ok(RestResponse.of(userResponseDtoList));
     }
 
     @GetMapping("/{id}")

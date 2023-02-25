@@ -48,6 +48,10 @@ public class UserService {
         return UserMapper.INSTANCE.convertToUserResponseDto(user);
     }
 
+
+    public User getOneUserByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
     public void delete(Long id) {
         if (id == null) {
             log.error("User id is null");
@@ -56,6 +60,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public User saveOneUser(User newUser) {
+        return userRepository.save(newUser);
+    }
     public boolean isExist(Long id){
         return userRepository.existsById(id);
     }

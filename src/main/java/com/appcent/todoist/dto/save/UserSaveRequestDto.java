@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Builder
@@ -15,17 +15,22 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UserSaveRequestDto {
 
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 15)
     private String firstName;
-    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 15)
     private String lastName;
-    @NotNull
-    @Email
+
+    @NotEmpty(message = "email should not be null or empty")
+    @Email(message = "email should be a valid email format")
+    @Size(min = 4, message = "Email must be at least 4 digits")
     private String email;
-    @NotNull
-    @Size(min = 6, max = 15)
+    @NotEmpty
+    @Size(min = 6, max = 15, message = "Username must be at least 4 digits")
     private String userName;
-    @NotNull
+    @NotEmpty
     @Size(min = 8)
     private String password;
+
 }

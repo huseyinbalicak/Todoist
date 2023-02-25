@@ -10,27 +10,26 @@ import org.springframework.beans.factory.annotation.Value;
 
 
 import java.util.Date;
-
 @Component
 public class JwtTokenGenerator {
 
-   // private static final int validity = 5 * 60 * 1000;
-   // Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    @Value("${appcent.jwt.security.app.key}")
-    private String APP_KEY;
-    @Value("${appcent.jwt.security.expire.time}")
-    private Long EXPIRE_TIME;
+
+    @Value("${balicak.app.secret}")
+    private String APP_SECRET;
+
+    @Value("${balicak.expires.in}")
+    private long EXPIRES_IN;
 
     public String generateJwtToken(Authentication authentication){
 
         JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
-        Date expireDate = new Date(new Date().getTime() + EXPIRE_TIME);
+        Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
 
         return Jwts.builder()
                 .setSubject(Long.toString(jwtUserDetails.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512, APP_KEY)
+                .signWith(SignatureAlgorithm.HS512, APP_SECRET)
                 .compact();
     }
 
@@ -42,7 +41,14 @@ public class JwtTokenGenerator {
     }
 
     private Jws<Claims> parseToken(String token) {
-        return Jwts.parser().setSigningKey(APP_KEY).parseClaimsJws(token);
+        return Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token);
+    }
+
+    public String generateJwtTokenByUserId(Long userId) {
+        Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
+        return Jwts.builder().setSubject(Long.toString(userId))
+                .setIssuedAt(new Date()).setExpiration(expireDate)
+                .signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
     }
 
     public boolean validateToken(String token){

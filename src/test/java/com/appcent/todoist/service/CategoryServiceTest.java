@@ -126,4 +126,10 @@ public class CategoryServiceTest {
 
     }
 
+    @Test
+    void shouldThrowEntityNotFoundExceptionWhenIdIsNull(){
+        assertThrows(EntityNotFoundException.class, () -> categoryService.delete(null));
+        verify(categoryRepository, never()).deleteById(anyLong());
+    }
+
 }

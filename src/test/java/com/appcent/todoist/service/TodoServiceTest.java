@@ -138,4 +138,10 @@ public class TodoServiceTest {
 
 
     }
+
+    @Test
+    void shouldThrowEntityNotFoundExceptionWhenIdIsNull(){
+        assertThrows(EntityNotFoundException.class, () -> todoService.delete(null));
+        verify(todoRepository, never()).deleteById(anyLong());
+    }
 }

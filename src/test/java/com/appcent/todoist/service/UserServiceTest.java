@@ -135,6 +135,12 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    void shouldThrowEntityNotFoundExceptionWhenIdIsNull(){
+        assertThrows(EntityNotFoundException.class, () -> userService.delete(null));
+        verify(userRepository, never()).deleteById(anyLong());
+    }
+
 
 
 }

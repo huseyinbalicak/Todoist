@@ -1,7 +1,7 @@
 package com.appcent.todoist.service;
 
-import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.save.TodoSaveRequestDto;
+import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.update.TodoUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
 import com.appcent.todoist.model.Todo;
@@ -85,15 +85,16 @@ public class TodoServiceTest {
         when(todo.getId()).thenReturn(1L);
         when(todoRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         when(todoRepository.save(any())).thenReturn(todo);
-        TodoResponseDto result = todoService.update(todoUpdateRequestDto);
+        TodoResponseDto result = todoService.update(todo.getId(),todoUpdateRequestDto);
         assertEquals(1L, result.getId());
     }
 
     @Test
     void shouldNotUpdate() {
         TodoUpdateRequestDto todoUpdateRequestDto = mock(TodoUpdateRequestDto.class);
+        Todo todo = mock(Todo.class);
         when(todoRepository.existsById(anyLong())).thenReturn(Boolean.FALSE);
-        assertThrows(EntityNotFoundException.class, () -> todoService.update(todoUpdateRequestDto));
+        assertThrows(EntityNotFoundException.class, () -> todoService.update(todo.getId(),todoUpdateRequestDto));
 
     }
 

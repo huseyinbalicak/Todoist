@@ -1,10 +1,10 @@
 package com.appcent.todoist.service;
 
+import com.appcent.todoist.model.Category;
 import com.appcent.todoist.dto.CategoryResponseDto;
 import com.appcent.todoist.dto.save.CategorySaveRequestDto;
 import com.appcent.todoist.dto.update.CategoryUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
-import com.appcent.todoist.model.Category;
 import com.appcent.todoist.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -82,15 +82,16 @@ public class CategoryServiceTest {
         when(category.getId()).thenReturn(1L);
         when(categoryRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         when(categoryRepository.save(any())).thenReturn(category);
-        CategoryResponseDto result = categoryService.update(categoryUpdateRequestDto);
+        CategoryResponseDto result = categoryService.update(category.getId(),categoryUpdateRequestDto);
         assertEquals(1L, result.getId());
     }
 
     @Test
     void shouldNotUpdate() {
         CategoryUpdateRequestDto categoryUpdateRequestDto = mock(CategoryUpdateRequestDto.class);
+        Category category = mock(Category.class);
         when(categoryRepository.existsById(anyLong())).thenReturn(Boolean.FALSE);
-        assertThrows(EntityNotFoundException.class, () -> categoryService.update(categoryUpdateRequestDto));
+        assertThrows(EntityNotFoundException.class, () -> categoryService.update(category.getId(),categoryUpdateRequestDto));
 
     }
 

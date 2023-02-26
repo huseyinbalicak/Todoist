@@ -1,10 +1,10 @@
 package com.appcent.todoist.service;
 
+import com.appcent.todoist.model.User;
 import com.appcent.todoist.dto.UserResponseDto;
 import com.appcent.todoist.dto.save.UserSaveRequestDto;
 import com.appcent.todoist.dto.update.UserUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
-import com.appcent.todoist.model.User;
 import com.appcent.todoist.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,7 +78,6 @@ public class UserServiceTest {
         UserSaveRequestDto userSaveRequestDto = mock(UserSaveRequestDto.class);
         User user = mock(User.class);
         when(user.getId()).thenReturn(1L);
-        when(passwordEncoder.encode(anyString())).thenReturn("huseyin123");
         when(userRepository.save(any())).thenReturn(user);
         UserResponseDto result = userService.save(userSaveRequestDto);
         assertEquals(1L, result.getId());
@@ -92,15 +91,16 @@ public class UserServiceTest {
         when(user.getId()).thenReturn(1L);
         when(userRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         when(userRepository.save(any())).thenReturn(user);
-        UserResponseDto result = userService.update(userUpdateRequestDto);
+        UserResponseDto result = userService.update(user.getId(),userUpdateRequestDto);
         assertEquals(1L, result.getId());
     }
 
     @Test
     void shouldNotUpdate() {
         UserUpdateRequestDto userUpdateRequestDto = mock(UserUpdateRequestDto.class);
+        User user = mock(User.class);
         when(userRepository.existsById(anyLong())).thenReturn(Boolean.FALSE);
-        assertThrows(EntityNotFoundException.class, () -> userService.update(userUpdateRequestDto));
+        assertThrows(EntityNotFoundException.class, () -> userService.update(user.getId(),userUpdateRequestDto));
 
     }
 

@@ -6,6 +6,7 @@ import com.appcent.todoist.dto.update.TodoUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
 import com.appcent.todoist.model.Todo;
 import com.appcent.todoist.repository.TodoRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,12 +31,14 @@ public class TodoServiceTest {
     private TodoService todoService;
 
     @Test
+    @DisplayName("When finding all todos with an empty todo list, the service")
     void shouldFindAll() {
         List<TodoResponseDto> todoResponseDtoList = todoService.findAll();
         assertEquals(0, todoResponseDtoList.size());
     }
 
     @Test
+    @DisplayName("When finding all todos with a non-empty todo list, the service")
     void shouldFindAllWhenReturnsTodos() {
         Todo todo = mock(Todo.class);
         List<Todo> todoList = new ArrayList<>();
@@ -46,6 +49,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When finding a todo by ID, the service")
     void shouldFindById() {
         Todo todo = mock(Todo.class);
         when(todo.getId()).thenReturn(1L);
@@ -55,6 +59,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When finding all todos but the todo list is null, the service")
     void shouldFindAllWhenTodoListISNull() {
         when(todoRepository.findAll()).thenReturn(null);
         List<TodoResponseDto> todoResponseDtoList = todoService.findAll();
@@ -62,12 +67,14 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When finding a todo by ID that does not exist, the service")
     void shouldNotFindByIdWhenIdDoesNotExist() {
         when(todoRepository.findById(anyLong())).thenThrow(EntityNotFoundException.class);
         assertThrows(EntityNotFoundException.class, () -> todoService.findById(-1L));
     }
 
     @Test
+    @DisplayName("When saving a todo, the service")
     void shouldSave() {
         TodoSaveRequestDto todoSaveRequestDto = mock(TodoSaveRequestDto.class);
         Todo todo = mock(Todo.class);
@@ -78,6 +85,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When updating an existing todo, the service")
     void shouldUpdate() {
 
         TodoUpdateRequestDto todoUpdateRequestDto = mock(TodoUpdateRequestDto.class);
@@ -90,6 +98,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When attempting to update a non-existent todo, the service")
     void shouldNotUpdate() {
         TodoUpdateRequestDto todoUpdateRequestDto = mock(TodoUpdateRequestDto.class);
         Todo todo = mock(Todo.class);
@@ -99,6 +108,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When checking if an existing todo exists, the service")
     void shouldExist() {
         when(todoRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
         boolean isExist = todoService.isExist(1L);
@@ -106,6 +116,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When checking if a non-existent todo exists, the service")
     void shouldNotExist() {
         when(todoRepository.existsById(anyLong())).thenReturn(Boolean.FALSE);
         boolean isExist = todoService.isExist(1L);
@@ -113,6 +124,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When deleting a todo with a valid ID, the service")
     void shouldDelete(){
         Todo todo = mock(Todo.class);
         todo.setId(1L);
@@ -124,6 +136,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When attempting to delete a non-existent todo, the service")
     void shouldNotDelete()
     {
 //        doThrow(EntityNotFoundException.class).when(todoRepository).deleteById(anyLong());
@@ -140,6 +153,7 @@ public class TodoServiceTest {
     }
 
     @Test
+    @DisplayName("When attempting to delete a todo with null ID, the service")
     void shouldThrowEntityNotFoundExceptionWhenIdIsNull(){
         assertThrows(EntityNotFoundException.class, () -> todoService.delete(null));
         verify(todoRepository, never()).deleteById(anyLong());

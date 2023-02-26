@@ -13,7 +13,6 @@ Tech Stack:
 * [H2 Database](#)
 * [JUnit5](#)
 * [Git](#)
-* [Integration Testing](#)
 * [MapStruct](#) 
 * [JWT](#)
 * [Spring Security](#) 
@@ -40,13 +39,13 @@ Tech Stack:
 |                    | DELETE | localhost:8080/users/{id} |   will delete user    |
 
 
-|     Controller     | Metot  |           Adres           |      Description      |
-|:------------------:| :----: |:-------------------------:|:---------------------:|
-| **TodoController** |  GET   |   localhost:8080/todos    |  will List All todos  |
-|                    |  GET   | localhost:8080/todos/{id} | will get todo with id |
-|                    |  POST  |   localhost:8080/todos    |     create a todo     |
-|                    |  PUT   |   localhost:8080/todos    |   will update todo    |
-|                    | DELETE | localhost:8080/todos/{id} |   will delete todo    |
+|     Controller     | Metot  |            Adres             |      Description      |
+|:------------------:| :----: |:----------------------------:|:---------------------:|
+| **TodoController** |  GET   |   localhost:8080/api/todo    |  will List All todos  |
+|                    |  GET   | localhost:8080/api/todo/{id} | will get todo with id |
+|                    |  POST  |   localhost:8080/api/todo    |     create a todo     |
+|                    |  PUT   |   localhost:8080/api/todo    |   will update todo    |
+|                    | DELETE | localhost:8080/api/todo/{id} |   will delete todo    |
 
 
 

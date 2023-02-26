@@ -58,12 +58,16 @@ public class TodoService {
         return TodoMapper.INSTANCE.convertToTodoResponseDto(todo);
     }
 
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Todo id is null");
+    public Todo delete(Long id) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+
+        if (optionalTodo.isPresent()){
+
+            todoRepository.delete(optionalTodo.get());
+            return optionalTodo.get();
+        } else {
             throw new EntityNotFoundException("No todo found with ID = " + id);
         }
-        todoRepository.deleteById(id);
     }
 
     public boolean isExist(Long id){

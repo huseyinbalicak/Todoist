@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryUpdateRequestDto {
 
-    private Long id;
     private String description;
     private UserUpdateRequestDto user;
     private List<TodoUpdateRequestDto> todoList;

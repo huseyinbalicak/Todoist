@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserUpdateRequestDto {
 
-    private Long id;
     @NotEmpty
     @Size(min = 3, max = 15)
     private String firstName;

@@ -114,17 +114,27 @@ public class TodoServiceTest {
 
     @Test
     void shouldDelete(){
-        doNothing().when(todoRepository).deleteById(anyLong());
-        todoService.delete(1L);
-        verify(todoRepository).deleteById(anyLong());
+        Todo todo = mock(Todo.class);
+        todo.setId(1L);
+        when(todoRepository.findById(1L)).thenReturn(Optional.of(todo));
+        Todo deletedTodo = todoService.delete(1L);
+        verify(todoRepository).delete(todo);
+        assertEquals(todo, deletedTodo);
+
     }
 
     @Test
     void shouldNotDelete()
     {
-        doThrow(EntityNotFoundException.class).when(todoRepository).deleteById(anyLong());
-        assertThrows(EntityNotFoundException.class,()->todoService.delete(anyLong()));
-        verify(todoRepository).deleteById(anyLong());
+//        doThrow(EntityNotFoundException.class).when(todoRepository).deleteById(anyLong());
+//        assertThrows(EntityNotFoundException.class,()->todoService.delete(anyLong()));
+//        verify(todoRepository).deleteById(anyLong());
+
+        when(todoRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> todoService.delete(1L));
+
+        verify(todoRepository, never()).delete(any());
 
 
     }

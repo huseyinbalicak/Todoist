@@ -18,12 +18,12 @@ import java.time.LocalDate;
 public class TodoSaveRequestDto {
 
     private String description;
-    @NotNull
+    @NotNull(message = "title cannot be null")
     @Size(min = 8)
     private String tittle;
-    @NotNull
+    @NotNull(message = "due_date cannot be null")
     private LocalDate due_date;
-    @NotNull
+    @NotNull(message = "completed cannot be null")
     private Boolean completed;
     private CategorySaveRequestDto category;
 }

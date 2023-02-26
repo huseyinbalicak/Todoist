@@ -69,7 +69,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         RestErrorResponse restErrorResponse = new RestErrorResponse(errorDate, message, detail);
 
         RestResponse<RestErrorResponse> restResponse = RestResponse.error(restErrorResponse);
-        restResponse.setMessages(message);
 
         return new ResponseEntity<>(restResponse, httpStatus);
     }

@@ -16,21 +16,21 @@ import javax.validation.constraints.Size;
 public class UserSaveRequestDto {
 
     @NotEmpty
-    @Size(min = 3, max = 15)
+
     private String firstName;
     @NotEmpty
-    @Size(min = 3, max = 15)
+
     private String lastName;
 
     @NotEmpty(message = "email should not be null or empty")
     @Email(message = "email should be a valid email format")
-    @Size(min = 4, message = "Email must be at least 4 digits")
+//    @Size(min = 4, message = "Email must be at least 4 digits")
     private String email;
     @NotEmpty
-    @Size(min = 6, max = 15, message = "Username must be at least 4 digits")
-    private String userName;
+//    @Size(min = 6, max = 15, message = "Username must be at least 4 digits")
+    private String username;
     @NotEmpty
-    @Size(min = 8)
+//    @Size(min = 8)
     private String password;
 
 }

@@ -1,11 +1,11 @@
 package com.appcent.todoist.service;
 
+import com.appcent.todoist.model.Category;
 import com.appcent.todoist.dto.CategoryResponseDto;
 import com.appcent.todoist.dto.save.CategorySaveRequestDto;
 import com.appcent.todoist.dto.update.CategoryUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
 import com.appcent.todoist.mapper.CategoryMapper;
-import com.appcent.todoist.model.Category;
 import com.appcent.todoist.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,14 +34,15 @@ public class CategoryService {
         return CategoryMapper.INSTANCE.convertToCategoryResponseDto(category);
     }
 
-    public CategoryResponseDto update(CategoryUpdateRequestDto categoryUpdateRequestDto) {
+    public CategoryResponseDto update(Long id,CategoryUpdateRequestDto categoryUpdateRequestDto) {
 
-        boolean isExist = isExist(categoryUpdateRequestDto.getId());
+        boolean isExist = isExist(id);
         if (!isExist){
             throw new EntityNotFoundException("Category not found");
         }
 
         Category category = CategoryMapper.INSTANCE.convertToCategory(categoryUpdateRequestDto);
+        category.setId(id);
         category = categoryRepository.save(category);
         return CategoryMapper.INSTANCE.convertToCategoryResponseDto(category);
     }

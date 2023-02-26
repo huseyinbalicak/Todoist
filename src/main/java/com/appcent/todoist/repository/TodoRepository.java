@@ -8,5 +8,7 @@ import java.util.List;
 @Repository
 public interface TodoRepository extends JpaRepository<Todo,Long> {
     List<Todo> findTodoByCategoryId(Long categoryId);
+//    List<Todo> findByCompletedTrue();
+
 
 }

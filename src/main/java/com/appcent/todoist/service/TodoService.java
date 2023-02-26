@@ -1,9 +1,9 @@
 package com.appcent.todoist.service;
 
-import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.save.TodoSaveRequestDto;
-import com.appcent.todoist.dto.update.TodoUpdateRequestDto;
 import com.appcent.todoist.exception.EntityNotFoundException;
+import com.appcent.todoist.dto.TodoResponseDto;
+import com.appcent.todoist.dto.update.TodoUpdateRequestDto;
 import com.appcent.todoist.mapper.TodoMapper;
 import com.appcent.todoist.model.Todo;
 import com.appcent.todoist.repository.TodoRepository;
@@ -45,14 +45,15 @@ public class TodoService {
         return TodoMapper.INSTANCE.convertToTodoResponseDto(todo);
     }
 
-    public TodoResponseDto update(TodoUpdateRequestDto todoUpdateRequestDto) {
+    public TodoResponseDto update(Long id,TodoUpdateRequestDto todoUpdateRequestDto) {
 
-        boolean isExist = isExist(todoUpdateRequestDto.getId());
+        boolean isExist = isExist(id);
         if (!isExist){
             throw new EntityNotFoundException("Todo not found");
         }
 
         Todo todo = TodoMapper.INSTANCE.convertToTodo(todoUpdateRequestDto);
+        todo.setId(id);
         todo = todoRepository.save(todo);
         return TodoMapper.INSTANCE.convertToTodoResponseDto(todo);
     }

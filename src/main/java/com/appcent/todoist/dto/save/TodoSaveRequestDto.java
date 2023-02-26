@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Builder
 @Getter
@@ -20,5 +21,9 @@ public class TodoSaveRequestDto {
     @NotNull
     @Size(min = 8)
     private String tittle;
+    @NotNull
+    private LocalDate due_date;
+    @NotNull
+    private Boolean completed;
     private CategorySaveRequestDto category;
 }

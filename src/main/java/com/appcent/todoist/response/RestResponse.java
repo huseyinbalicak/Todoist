@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -13,14 +14,14 @@ import java.util.Date;
 public class RestResponse<T> implements Serializable {
 
     private T data;
-    private Date responseDate;
+    private String responseDate;
     private boolean isSuccess;
-    private String messages;
 
     public RestResponse(T data, boolean isSuccess) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
         this.data = data;
         this.isSuccess = isSuccess;
-        this.responseDate = new Date();
+        this.responseDate = sdf.format(new Date());
     }
 
     public static <T> RestResponse<T> of(T t){
@@ -35,7 +36,4 @@ public class RestResponse<T> implements Serializable {
         return new RestResponse<>(null, true);
     }
 
-    public void setMessages(String messages) {
-        this.messages = messages;
-    }
 }

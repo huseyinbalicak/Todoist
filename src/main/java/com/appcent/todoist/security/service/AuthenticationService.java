@@ -1,15 +1,13 @@
 package com.appcent.todoist.security.service;
 
-import com.appcent.todoist.dto.UserResponseDto;
 import com.appcent.todoist.dto.save.UserSaveRequestDto;
 import com.appcent.todoist.model.User;
-import com.appcent.todoist.response.AuthResponse;
 import com.appcent.todoist.security.JwtTokenGenerator;
-import com.appcent.todoist.security.dto.LoginRequestDto;
 import com.appcent.todoist.security.dto.RefreshRequest;
-import com.appcent.todoist.security.dto.RefreshToken;
-import com.appcent.todoist.security.enums.EnumJwtConstant;
 import com.appcent.todoist.service.UserService;
+import com.appcent.todoist.response.AuthResponse;
+import com.appcent.todoist.security.dto.LoginRequestDto;
+import com.appcent.todoist.security.dto.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,19 +30,19 @@ public class AuthenticationService {
 
     public AuthResponse register(UserSaveRequestDto userSaveRequestDto) {
         AuthResponse authResponse = new AuthResponse();
-        if (userService.getOneUserByUserName(userSaveRequestDto.getUserName()) != null) {
-            authResponse.getRestErrorResponse().setMessage("Username already in use.");
+        if (userService.getOneUserByUserName(userSaveRequestDto.getUsername()) != null) {
+            authResponse.setMessage("Username already in use.");
             return authResponse;
         }
         User user = new User();
-        user.setUserName(userSaveRequestDto.getUserName());
+        user.setUsername(userSaveRequestDto.getUsername());
         user.setPassword(passwordEncoder.encode(userSaveRequestDto.getPassword()));
         user.setEmail(userSaveRequestDto.getEmail());
         user.setLastName(userSaveRequestDto.getLastName());
         user.setFirstName(userSaveRequestDto.getFirstName());
-        userService.saveOneUser(user);
+        userService.save(user);
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userSaveRequestDto.getUserName(), userSaveRequestDto.getPassword());
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userSaveRequestDto.getUsername(), userSaveRequestDto.getPassword());
         Authentication auth = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
         String jwtToken = jwtTokenGenerator.generateJwtToken(auth);

@@ -26,7 +26,7 @@ public class JwtUserDetails implements UserDetails {
     public static JwtUserDetails create(User user){
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         grantedAuthorityList.add(new SimpleGrantedAuthority("user"));
-        return new JwtUserDetails(user.getId(), user.getUserName(), user.getPassword(), grantedAuthorityList);
+        return new JwtUserDetails(user.getId(), user.getUsername(), user.getPassword(), grantedAuthorityList);
     }
 
     @Override

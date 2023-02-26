@@ -1,9 +1,9 @@
 package com.appcent.todoist.config;
 
+import com.appcent.todoist.security.JwtUserDetailsService;
 import com.appcent.todoist.security.JwtAuthenticationEntryPoint;
 import com.appcent.todoist.security.JwtAuthenticationFilter;
 import com.appcent.todoist.security.JwtTokenGenerator;
-import com.appcent.todoist.security.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**",
                         "/categories/**",
                         "/",
-                        "/todos/**",
+                        "/api/todo/**",
                         "/users/**",
                         "/v3/**"
 

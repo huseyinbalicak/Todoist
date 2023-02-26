@@ -31,7 +31,7 @@ public class RefreshToken {
 	@JoinColumn(name="user_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
-	User user;
+    User user;
 	
 	@Column(nullable = false, unique = true)
 	String token;

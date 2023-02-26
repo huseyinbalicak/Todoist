@@ -39,7 +39,7 @@ public class Category {
     @JsonIgnore
     private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

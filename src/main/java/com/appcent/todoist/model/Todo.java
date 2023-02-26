@@ -1,11 +1,11 @@
 package com.appcent.todoist.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,29 +13,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "todo")
+@Entity
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
     private String tittle;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
-    @Temporal(TemporalType.DATE)
-    private Date expirationDate;
-    private Boolean isDone;
+    @Column(name = "due_date", nullable = false)
+    private LocalDate due_date;
+    private Boolean completed;
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;

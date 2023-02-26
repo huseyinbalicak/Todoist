@@ -3,8 +3,8 @@ package com.appcent.todoist.controller;
 import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.save.TodoSaveRequestDto;
 import com.appcent.todoist.dto.update.TodoUpdateRequestDto;
-import com.appcent.todoist.response.RestResponse;
 import com.appcent.todoist.service.TodoService;
+import com.appcent.todoist.response.RestResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,12 +21,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/todos")
+@RequestMapping("/api/todo")
 public class TodoController {
 
     private final TodoService todoService;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity findAll(){
         List<TodoResponseDto> todoResponseDtoList = todoService.findAll();
         return ResponseEntity.ok(RestResponse.of(todoResponseDtoList));
@@ -45,9 +45,9 @@ public class TodoController {
     }
 
 
-    @PutMapping
-    public ResponseEntity update(@Valid  @RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
-        TodoResponseDto todoResponseDto = todoService.update(todoUpdateRequestDto);
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id,@Valid  @RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
+        TodoResponseDto todoResponseDto = todoService.update(id,todoUpdateRequestDto);
         return ResponseEntity.ok(RestResponse.of(todoResponseDto));
     }
 

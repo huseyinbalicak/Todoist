@@ -1,11 +1,11 @@
 package com.appcent.todoist.controller;
 
 import com.appcent.todoist.dto.CategoryResponseDto;
+import com.appcent.todoist.service.CategoryService;
 import com.appcent.todoist.dto.TodoResponseDto;
 import com.appcent.todoist.dto.save.CategorySaveRequestDto;
 import com.appcent.todoist.dto.update.CategoryUpdateRequestDto;
 import com.appcent.todoist.response.RestResponse;
-import com.appcent.todoist.service.CategoryService;
 import com.appcent.todoist.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +47,9 @@ public class CategoryController {
         return ResponseEntity.ok(RestResponse.of(categoryResponseDto));
     }
 
-    @PutMapping
-    public ResponseEntity update(@Valid @RequestBody CategoryUpdateRequestDto categoryUpdateRequestDto){
-        CategoryResponseDto categoryResponseDto = categoryService.update(categoryUpdateRequestDto);
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id,@Valid @RequestBody CategoryUpdateRequestDto categoryUpdateRequestDto){
+        CategoryResponseDto categoryResponseDto = categoryService.update(id,categoryUpdateRequestDto);
         return ResponseEntity.ok(RestResponse.of(categoryResponseDto));
     }
 
